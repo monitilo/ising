@@ -1,32 +1,50 @@
 #include "metropolis.h"
+#include <math.h>
+#include "stdlib.h"
+
 
 int metropolis(int *lattice, int n, float T) {
-  int i=0, j=0, r;
-  int E0, E ;
+  int i=0, j=0, r, e;
 
-  r = pick_site(lattice, n) ;
-  j = r
-  while (j>n){
-    j = j-n;
-    i=i+1;
-  }
+  idx = pick_site(lattice, n) ;
 
-  lattice[i*n+j]
+  e=flip(lattice,n,T,idx)
 
-  flip()
-
-  return 0;
+  return e;
 }
 
 int pick_site(int *lattice, int n) { // que hace esto???
   int r;
   r=rand() % ((n*n)-1) ;
+
+    """
+    j = r
+    while (j>n){
+      j = j-n;
+      i=i+1;
+    }
+  """
   return r;
 }
 
 int flip(int *lattice, int n, float T, int idx) {
+  int e0, e, deltae, p;
+  float pi;
+  e0 = energia(lattice,n);
 
-  return 0;
+  lattice[idx]=lattice[idx]*(-1);
+
+  deltae = energia(lattice,n) - e0 ;
+
+  pi=exp(-deltae/T)
+
+  if pi>=1 p=1
+  else p = (((float)rand() / (float)RAND_MAX) < pi)
+
+  if p==0   lattice[idx]=lattice[idx]*(-1);
+  else e = energia(lattice,n)
+
+  return e;
 }
 
 int energia (int *lattice, int n){
@@ -53,16 +71,11 @@ int energia (int *lattice, int n){
 
   //ahora para el bulk
   for(i=1;i<n-1;i++){
-
     for(j=1;j<n-1;j++){
 
-      e=e + lattice[i*n+j]*(lattice[i*n+j+1]+lattice[i*n+j-1]+lattice[i*(n+1)+j]+lattice[i*(n-1)+j])
-
-
-
+      e = e + lattice[i*n+j]*(lattice[i*n+j+1]+lattice[i*n+j-1]+lattice[i*(n+1)+j]+lattice[i*(n-1)+j]);
 
     }
-
   }
-
+  return e ;
 }
