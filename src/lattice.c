@@ -1,4 +1,6 @@
 #include "lattice.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 int fill_lattice(int *lattice, int n, float p) {
 
