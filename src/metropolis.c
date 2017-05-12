@@ -1,4 +1,5 @@
 #include "metropolis.h"
+
 #include "stdlib.h"
 #include <math.h>
 #include <stdio.h>
@@ -104,5 +105,6 @@ int energiaVecinos(int *lattice, int n, int idx){
   de = vecinos(lattice,n,i,j) + vecinos(lattice,n,i+1,j) + vecinos(lattice,n,i-1,j) + vecinos(lattice,n,i,j+1) + vecinos(lattice,n,i,j-1);
 
   return de;
+
 
 }
