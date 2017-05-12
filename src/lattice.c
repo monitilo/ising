@@ -12,7 +12,7 @@ int fill_lattice(int *lattice, int n, float p) {
     if(((float)rand() / (float)RAND_MAX) < p) lattice[i] = 1;
     else lattice[i] = -1;
 
-
+  }
   return 0;
 }
 
