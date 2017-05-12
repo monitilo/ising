@@ -20,13 +20,18 @@ int main(int argc, char **argv) {
     sscanf(argv[3],"%d",&niter);
 
   }
-
   printf("L = %d; T = %f; Z = %d\n",n,T,niter);
   srand(time(NULL));
+
   fill_lattice(lattice, n, prob);
+
+  //print_lattice(lattice,n);
+  printf("L = %d; T = %f; Z = %d\n",n,T,niter);
+
   for (int i = 0; i < niter; i++) {
     de = metropolis(lattice, n, T);
   }
 
+  print_lattice(lattice,n);
   return 0;
 }

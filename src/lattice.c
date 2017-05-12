@@ -24,8 +24,10 @@ int print_lattice(int *lattice, int n) {
 
 	for(i = 0; i < n; i++){
 
-		for(j = 0; j < n; j++) printf("%d ", lattice[i*n+j]);
-
+		for(j = 0; j < n; j++){
+      if(lattice[i*n+j]==1) printf("+ ");
+      else printf("- ");
+   }
 		printf("\n");
 
 	}

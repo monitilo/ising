@@ -35,7 +35,7 @@ int flip(int *lattice, int n, float T, int idx) {
   pi = exp(-deltae/T);
 
   if(pi<=1){
-    if( pi > ((float)rand() / (float)RAND_MAX) ){   //si la moneda es mas chica que la probabilidad, rechazo el cambio
+    if( pi < ((float)rand() / (float)RAND_MAX) ){   //si la moneda es mas chica que la probabilidad, rechazo el cambio
       lattice[idx]=lattice[idx]*(-1);
       deltae = 0;
     }
