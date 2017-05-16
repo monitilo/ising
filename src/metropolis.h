@@ -6,6 +6,5 @@ int flip(int *lattice, int n, float T, int idx);
 
 int energia(int *lattice, int n);
 int vecinos(int *lattice, int n, int i, int j);
-int energiaVecinos(int *lattice, int n, int idx);
 
 #endif

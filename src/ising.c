@@ -1,4 +1,4 @@
-#include "stdlib.h"
+#include <stdlib.h>
 #include "time.h"
 #include <stdio.h>
 #include "metropolis.h"
@@ -6,12 +6,12 @@
 
 int main(int argc, char **argv) {
 
-  int n = 32;
-  int de;
+  int n = 8;
   int *lattice = malloc(n * n * sizeof(int));
   float prob = 0.5;
   float T = 2.0;
-  int niter = 1000;
+  int niter = 10000;
+  FILE *fs;
 
   if(argc==4){
 
@@ -20,18 +20,28 @@ int main(int argc, char **argv) {
     sscanf(argv[3],"%d",&niter);
 
   }
-  printf("L = %d; T = %f; Z = %d\n",n,T,niter);
+
+  int *de = malloc(niter*sizeof(int));
+
   srand(time(NULL));
 
   fill_lattice(lattice, n, prob);
 
-  //print_lattice(lattice,n);
   printf("L = %d; T = %f; Z = %d\n",n,T,niter);
 
+
   for (int i = 0; i < niter; i++) {
-    de = metropolis(lattice, n, T);
+
+    de[i] = metropolis(lattice, n, T);
+
   }
 
+  fs = fopen("de.txt","a");
+  for(int i = 0;i < niter; i++) fprintf(fs,"%d\n",de[i]);
+  fclose(fs);
+
   print_lattice(lattice,n);
+
+  free(lattice);
   return 0;
 }

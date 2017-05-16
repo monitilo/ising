@@ -1,0 +1,16 @@
+#include <stdlib.h>
+#include "time.h"
+#include <stdio.h>
+#include "metropolis.h"
+#include "lattice.h"
+
+int main(int argc, char **argv) {
+
+  int lattice[] = {1,-1,-1,1,1,1,1,1,1};
+  int n = 3;
+
+  print_lattice(lattice,n);
+  printf("%d\n",2*vecinos(lattice,n,1,0));
+
+
+}

@@ -18,27 +18,31 @@ int metropolis(int *lattice, int n, float T) {
 int pick_site(int *lattice, int n) {
 
   int i;
-  i = rand() % (n*n-1);
+  i = (int)(((float)rand() / (float)RAND_MAX)*n*n);
   return i;
 
 }
 
 int flip(int *lattice, int n, float T, int idx) {
 
-  int deltae;
+  int deltae,i=0,j;
   float pi;
 
-  deltae = energiaVecinos(lattice,n,idx); //calculo las interacciones del spin de interes
-  lattice[idx]=lattice[idx]*(-1); //flippeo el spin
-  deltae = energiaVecinos(lattice,n,idx) - deltae; //calculo el delta con el spin flippeado
+  //tranformo idx en (i,j)
+  j=idx;
+  while(j>=n){
+      j = j-n;
+      i = i+1;
+  }
+  //printf("i=%d j=%d\n",i,j);
+  deltae = 2*vecinos(lattice,n,i,j);
 
-  pi = exp(-deltae/T);
+  if(deltae<0) lattice[idx]=lattice[idx]*(-1);
+  else{
 
-  if(pi<=1){
-    if( pi < ((float)rand() / (float)RAND_MAX) ){   //si la moneda es mas chica que la probabilidad, rechazo el cambio
-      lattice[idx]=lattice[idx]*(-1);
-      deltae = 0;
-    }
+    pi = exp(-deltae/T);
+    if( ((float)rand() / (float)RAND_MAX) < pi ) lattice[idx]=lattice[idx]*(-1);
+
   }
 
   return deltae;
@@ -51,7 +55,6 @@ int energia(int *lattice, int n){
 
   for(i=0;i<n;i++) for(j=0;j<n;j++) e = e - vecinos(lattice,n,i,j) ;
 
-
   return e;
 
 }
@@ -59,11 +62,6 @@ int energia(int *lattice, int n){
 int vecinos(int *lattice, int n, int i, int j){
 
   int e;
-
-  if(i==n) i = 0;
-  if(i==-1) i = n-1;
-  if(j==n) j = 0;
-  if(j==-1) j = n-1;
 
   if(i==0){
 
@@ -97,26 +95,5 @@ int vecinos(int *lattice, int n, int i, int j){
   }
 
 return e;
-
-}
-
-int energiaVecinos(int *lattice, int n, int idx){
-
-  int de;
-  int i = 0;
-  int j = idx;
-
-  //tranformo idx en (i,j)
-  while(j>=n){
-      j = j-n;
-      i = i+1;
-  }
-
-  de = -(vecinos(lattice,n,i,j) + vecinos(lattice,n,i+1,j) +
-        vecinos(lattice,n,i-1,j)+ vecinos(lattice,n,i,j+1) +
-        vecinos(lattice,n,i,j-1));
-
-  return de;
-
 
 }
