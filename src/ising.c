@@ -2,16 +2,18 @@
 #include "time.h"
 #include <stdio.h>
 #include "metropolis.h"
+#include <math.h>
 #include "lattice.h"
 
 int main(int argc, char **argv) {
 
   int n = 8;
-  int *lattice = malloc(n * n * sizeof(int));
   float prob = 0.5;
   float T = 2.0;
   int niter = 10000;
-  FILE *fs;
+  float J=1, B=0;
+  float e ;
+  int m;
 
   if(argc==4){
 
@@ -21,7 +23,7 @@ int main(int argc, char **argv) {
 
   }
 
-  int *de = malloc(niter*sizeof(int));
+  int *lattice = malloc(n * n * sizeof(int));
 
   srand(time(NULL));
 
@@ -29,19 +31,24 @@ int main(int argc, char **argv) {
 
   printf("L = %d; T = %f; Z = %d\n",n,T,niter);
 
+  float *expo = malloc(10*sizeof(float));
+
+  for (int i=-2; i<3; i++) expo[i+2]  = exp(-(J*4*i+2*B)/T) ;
+  for (int i=-2; i<3; i++) expo[i+2+5]= exp(-(J*4*i-2*B)/T) ;
+
+
+  e = energia(lattice,n,J,B);
+  m = magnetizacion(lattice,n);
 
   for (int i = 0; i < niter; i++) {
 
-    de[i] = metropolis(lattice, n, T);
-
+    metropolis(lattice, n, J, B, expo, &e, &m);
   }
 
-  fs = fopen("de.txt","a");
-  for(int i = 0;i < niter; i++) fprintf(fs,"%d\n",de[i]);
-  fclose(fs);
 
   print_lattice(lattice,n);
 
   free(lattice);
+  free(expo);
   return 0;
 }
