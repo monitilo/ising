@@ -1,17 +1,13 @@
 #include "metropolis.h"
-
 #include "stdlib.h"
-#include <math.h>
 #include <stdio.h>
 
 int metropolis(int *lattice, int n, float J, float B,float *expo, float *e, int *m) {
 
   int idx;
-  float deltae;
 
   idx = pick_site(lattice,n);
-  deltae = flip(lattice,n,idx,J,B,expo,&e,&m);
-
+  flip(lattice,n,idx,J,B,expo,e,m);
 
   return 0;
 
@@ -25,7 +21,7 @@ int pick_site(int *lattice, int n) {
 
 }
 
-float flip(int *lattice, int n, int idx, float J, float B, float *expo, float *e, int *m) {
+int flip(int *lattice, int n, int idx, float J, float B, float *expo, float *e, int *m) {
 
   float deltae;
   float pi;
@@ -48,10 +44,13 @@ float flip(int *lattice, int n, int idx, float J, float B, float *expo, float *e
     if( ((float)rand() / (float)RAND_MAX) < pi ) lattice[idx]=lattice[idx]*(-1);
 
   }
+
   *e = *e + deltae;
   dm = lattice[idx]-dm;
   *m = *m +dm;
+
   return 0;
+
 }
 
 float energia(int *lattice, int n, float J, float B){
@@ -65,9 +64,10 @@ float energia(int *lattice, int n, float J, float B){
 }
 int magnetizacion(int*lattice, int n){
   int i;
-  float m = 0;
+  int m = 0;
 
   for(i=0;i<n*n;i++) m = m + lattice[i] ;
+
   return m ;
 }
 
