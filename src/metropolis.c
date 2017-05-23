@@ -10,7 +10,7 @@ int metropolis(int *lattice, int n, float J, float B,float *expo, float *e, int 
   float deltae;
 
   idx = pick_site(lattice,n);
-  deltae = flip(lattice,n,idx,J,B,expo,&e,&m);
+  flip(lattice,n,idx,J,B,expo,e,m);
 
 
   return 0;
@@ -25,7 +25,7 @@ int pick_site(int *lattice, int n) {
 
 }
 
-float flip(int *lattice, int n, int idx, float J, float B, float *expo, float *e, int *m) {
+int flip(int *lattice, int n, int idx, float J, float B, float *expo, float *e, int *m) {
 
   float deltae;
   float pi;
