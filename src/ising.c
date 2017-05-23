@@ -60,11 +60,15 @@ int main(int argc, char **argv) {
 
   fs= fopen ("rho.txt", "a");
   for (int i = 0; i < niter; i++) fprintf(fs,"%f %f %f %f\n", evector[i], mvector[i], rhoe[i], rhom[i]);
-
+  fclose(fs);
 
 
   print_lattice(lattice,n);
 
+  free(evector);
+  free(mvector);
+  free(rhoe);
+  free(rhom);
   free(lattice);
   free(expo);
   return 0;
