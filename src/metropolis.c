@@ -42,6 +42,7 @@ int flip(int *lattice, int n, int idx, float J, float B, float *expo, float *e, 
       pi=expo[indice+2+5];
     }
     if( ((float)rand() / (float)RAND_MAX) < pi ) lattice[idx]=lattice[idx]*(-1);
+    else deltae = 0;
 
   }
 

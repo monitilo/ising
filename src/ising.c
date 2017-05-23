@@ -4,6 +4,7 @@
 #include "metropolis.h"
 #include <math.h>
 #include "lattice.h"
+#include "correlacion.h"
 
 int main(int argc, char **argv) {
 
@@ -34,22 +35,33 @@ int main(int argc, char **argv) {
 
   float *expo = malloc(10*sizeof(float));
 
-  for (int i=-2; i<3; i++) expo[i+2]  = exp(-(J*4*i-2*B)/T) ;
-  for (int i=-2; i<3; i++) expo[i+2+5]= exp(-(J*4*i+2*B)/T) ;
+  for (int i=-2; i<3; i++) expo[i+2]  = exp(-(J*4*i+2*B)/T) ;
+  for (int i=-2; i<3; i++) expo[i+2+5]= exp(-(J*4*i-2*B)/T) ;
+
 
   e = energia(lattice,n,J,B);
   m = magnetizacion(lattice,n);
 
-  fs = fopen("e.txt","a");
+  float *evector = malloc(niter*sizeof(float));
+  float *mvector = malloc(niter*sizeof(int));
+  float *rhoe = malloc (niter*sizeof(float));
+  float *rhom = malloc (niter*sizeof(float));
+
 
   for (int i = 0; i < niter; i++) {
-
-    fprintf(fs,"%f \n",e);
+    evector[i] = e;
+    mvector[i] = (float) m;
     metropolis(lattice, n, J, B, expo, &e, &m);
 
   }
 
-  fclose(fs);
+  autocorr(evector, niter, rhoe);
+  autocorr(mvector, niter, rhom);
+
+  fs= fopen ("rho.txt", "a");
+  for (int i = 0; i < niter; i++) fprintf(fs,"%f %f %f %f\n", evector[i], mvector[i], rhoe[i], rhom[i]);
+
+
 
   print_lattice(lattice,n);
 
