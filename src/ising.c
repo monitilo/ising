@@ -14,6 +14,7 @@ int main(int argc, char **argv) {
   float J=1, B=0;
   float e ;
   int m;
+  FILE *fs;
 
   if(argc==4){
 
@@ -33,18 +34,22 @@ int main(int argc, char **argv) {
 
   float *expo = malloc(10*sizeof(float));
 
-  for (int i=-2; i<3; i++) expo[i+2]  = exp(-(J*4*i+2*B)/T) ;
-  for (int i=-2; i<3; i++) expo[i+2+5]= exp(-(J*4*i-2*B)/T) ;
-
+  for (int i=-2; i<3; i++) expo[i+2]  = exp(-(J*4*i-2*B)/T) ;
+  for (int i=-2; i<3; i++) expo[i+2+5]= exp(-(J*4*i+2*B)/T) ;
 
   e = energia(lattice,n,J,B);
   m = magnetizacion(lattice,n);
 
+  fs = fopen("e.txt","a");
+
   for (int i = 0; i < niter; i++) {
 
+    fprintf(fs,"%f \n",e);
     metropolis(lattice, n, J, B, expo, &e, &m);
+
   }
 
+  fclose(fs);
 
   print_lattice(lattice,n);
 
