@@ -5,7 +5,7 @@ import sys
 T, E , M = np.loadtxt(sys.argv[1],unpack=True)
 
 plt.figure(1)
-plt.plot(T,M,'.b')
+plt.plot(T,np.abs(M),'.-b')
 
 """plt.figure(3)
 plt.plot(x,e,'b')

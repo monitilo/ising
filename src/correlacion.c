@@ -16,11 +16,11 @@ int autocorr(float *vector, int niter, float *rho ){
 
   return 0 ;
 }
-float esperanza(float *vector, int niter) {
+float esperanza(float *vector, int n) {
   float mu=0;
 
-  for(int i=0;i<niter;i++) mu = mu + vector[i];
-  mu = mu/niter ;
+  for(int i=0;i<n;i++) mu = mu + vector[i];
+  mu = mu/n ;
 
   return mu ;
 }

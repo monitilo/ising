@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv) {
 
-  int n = 20;
+  int n = 32;
   float prob = 0.5;
   float T = 0;
   int niter = 500000;
@@ -16,8 +16,13 @@ int main(int argc, char **argv) {
   float e ;
   int m;
   FILE *fs;
+  int qiter = 10;
 
   srand(time(NULL));
+
+  int *lattice = malloc(n * n * sizeof(int));
+
+  fill_lattice(lattice, n, prob);
 
   for (int w=0 ; w<100 ; w++){
 
@@ -25,33 +30,38 @@ int main(int argc, char **argv) {
 
     printf("L = %d; T = %f; Z = %d\n",n,T,niter);
 
-
-    int *lattice = malloc(n * n * sizeof(int));
-
-
-    fill_lattice(lattice, n, prob);
+    float *evector = malloc(qiter * sizeof(float));
+    float *mvector = malloc(qiter * sizeof(float));
 
     float *expo = malloc(10*sizeof(float));
 
     for (int i=-2; i<3; i++) expo[i+2]  = exp(-(J*4*i+2*B)/T) ;
     for (int i=-2; i<3; i++) expo[i+2+5]= exp(-(J*4*i-2*B)/T) ;
 
-
-    e = energia(lattice,n,J,B);
-    m = magnetizacion(lattice,n);
+      for (int q=0; q<qiter;q++){
 
 
-    for (int i = 0; i < niter; i++) metropolis(lattice, n, J, B, expo, &e, &m);
+      e = energia(lattice,n,J,B);
+      m = magnetizacion(lattice,n);
 
 
+      for (int i = 0; i < niter; i++) metropolis(lattice, n, J, B, expo, &e, &m);
 
-    fs= fopen ("MvsT.txt", "a");
-    fprintf(fs,"%f %f %d\n" , T, e, m);
-    fclose(fs);
+      evector[q] = e;
+      mvector[q] = (float) m ;
 
-    free(lattice);
+    }
+
     free(expo);
 
+    fs= fopen ("MvsT.txt", "a");
+    fprintf(fs,"%f %f %f\n" , T, esperanza(evector,qiter), esperanza(mvector,qiter));
+    fclose(fs);
+
+    free(evector);
+    free(mvector);
   }
+  free(lattice);
+
   return 0;
 }
