@@ -3,5 +3,6 @@
 
 int autocorr(float *vector, int niter, float *rho );
 float esperanza(float *vector, int niter) ;
+float float_abs(float valor);
 
 #endif

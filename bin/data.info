@@ -1,0 +1,5 @@
+MvsT_1.txt es con niter=1000000 y quiter=10 llendo de 0.004 a 4 con pasos de a 0.004 (J=1, B=0)
+MvsT_2.txt es con niter=1000000 y quiter=10 llendo de 4 a 0.004 con pasos de a 0.004 (J=1, B=0)
+MvsT_3.txt es con niter=1000000 y quiter=10 llendo de 0.004 a 4 con pasos de a 0.004 (J=1, B=0) agregando varianzas
+MvsT_4.txt es con niter=1000000 y quiter=10 llendo de 4 a 0.004 con pasos de a 0.004 (J=1, B=0) agregando varianzas
+
