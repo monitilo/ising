@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
   float e;
   int m;
   FILE *fs;
-  int qiter = 10;
+  int qiter = 100;
 
   srand(time(NULL));
 
@@ -28,9 +28,9 @@ int main(int argc, char **argv) {
   fprintf(fs,"#T eMean sigmaE mMean sigmaM \n");
   fclose(fs);
 
-  for (int w=0 ; w<1000 ; w++){
+  for (int w=0 ; w<2000 ; w++){
 
-    T = 0.004 *(w+1) ;
+    T = 0.0005 *(w+1) + 1.8 ;
 
     printf("L = %d; T = %f; LargoCadena = %d, Promedio = %d\n",n,T,niter,qiter);
 
