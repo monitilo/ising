@@ -11,7 +11,7 @@ int main(int argc, char **argv) {
   int n = 8;
   float prob = 0.5;
   float T = 2.0;
-  int niter = 10000;
+  int niter = 50000;
   float J=1, B=0;
   float e ;
   int m;
