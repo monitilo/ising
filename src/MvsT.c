@@ -12,11 +12,11 @@ int main(int argc, char **argv) {
   float prob = 0.5;
   float T = 0;
   int niter = 500000;
-  float J=1, B=0;
+  float J=1, B=-1;
   float e ;
   int m;
   FILE *fs;
-  int qiter = 10;
+  int qiter = 20;
 
   srand(time(NULL));
 
@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 
   for (int w=0 ; w<100 ; w++){
 
-    T = 0.04 *(w+1) ;
+    T = 2.8 - 0.01 *(w+1) ;
 
     printf("L = %d; T = %f; Z = %d\n",n,T,niter);
 
