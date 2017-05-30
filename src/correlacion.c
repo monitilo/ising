@@ -24,3 +24,10 @@ float esperanza(float *vector, int n) {
 
   return mu ;
 }
+
+float float_abs(float valor){
+
+  if(valor<0) return -valor;
+  else return valor;
+
+}
