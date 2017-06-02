@@ -8,13 +8,14 @@
 
 int main(int argc, char **argv) {
 
-  int n = 8;
+  int n = 32;
   float prob = 0.5;
   float T = 2.0;
-  int niter = 50000;
+  int niter = n*n*10;
   float J=1, B=0;
   float e ;
   int m;
+  int nterm = 10000;
   FILE *fs;
 
   if(argc==4){
@@ -31,6 +32,7 @@ int main(int argc, char **argv) {
 
   fill_lattice(lattice, n, prob);
 
+
   printf("L = %d; T = %f; Z = %d\n",n,T,niter);
 
   float *expo = malloc(10*sizeof(float));
@@ -43,10 +45,13 @@ int main(int argc, char **argv) {
   m = magnetizacion(lattice,n);
 
   float *evector = malloc(niter*sizeof(float));
-  float *mvector = malloc(niter*sizeof(int));
+  float *mvector = malloc(niter*sizeof(float));
   float *rhoe = malloc (niter*sizeof(float));
   float *rhom = malloc (niter*sizeof(float));
 
+  for (int i = 0; i < nterm; i++) {
+    metropolis(lattice, n, J, B, expo, &e, &m);
+  }
 
   for (int i = 0; i < niter; i++) {
     evector[i] = e;
@@ -58,7 +63,7 @@ int main(int argc, char **argv) {
   autocorr(evector, niter, rhoe);
   autocorr(mvector, niter, rhom);
 
-  fs= fopen ("rho.txt", "a");
+  fs= fopen ("rho.txt", "w");
   for (int i = 0; i < niter; i++) fprintf(fs,"%f %f %f %f\n", evector[i], mvector[i], rhoe[i], rhom[i]);
   fclose(fs);
 
@@ -71,5 +76,7 @@ int main(int argc, char **argv) {
   free(rhom);
   free(lattice);
   free(expo);
+
+
   return 0;
 }
