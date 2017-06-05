@@ -8,6 +8,7 @@ plt.figure(1)
 
 plt.subplot(211)
 plt.plot(T,M,'.-b')
+plt.plot(np.trim_zeros(T),32**2*np.tanh(0.001/np.trim_zeros(T)),'.-r')
 plt.subplot(212)
 plt.plot(T,sM,'.-b')
 plt.show()

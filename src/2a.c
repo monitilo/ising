@@ -26,10 +26,11 @@ int main(int argc, char **argv) {
   float Tmax_vector[5]={0.5,5,20,200,3000};
   float Tmax, pendiente;
   int wmax=5000;
+  float *expo = malloc(10*sizeof(float));
+  int *lattice = malloc(n * n * sizeof(int));
+
 
   for(int j=0;j<5;j++){
-
-    int *lattice = malloc(n * n * sizeof(int));
 
     fill_lattice(lattice, n, prob);
 
@@ -54,15 +55,13 @@ int main(int argc, char **argv) {
       float sigmaE = 0;
       float sigmaM = 0;
 
-      float *expo = malloc(10*sizeof(float));
-
       for (int i=-2; i<3; i++) expo[i+2]  = exp(-(J*4*i+2*B)/T) ;
       for (int i=-2; i<3; i++) expo[i+2+5]= exp(-(J*4*i-2*B)/T) ;
 
-      for (int q=0; q<qiter;q++){
+      e = energia(lattice,n,J,B);
+      m = magnetizacion(lattice,n);
 
-        e = energia(lattice,n,J,B);
-        m = magnetizacion(lattice,n);
+      for (int q=0; q<qiter;q++){
 
         for (int i = 0; i < niter; i++) metropolis(lattice, n, J, B, expo, &e, &m);
 
@@ -80,13 +79,11 @@ int main(int argc, char **argv) {
       fprintf(fs,"%f %f %f %f %f\n" , T, eMean, sigmaE, mMean, sigmaM);
       fclose(fs);
 
-      free(expo);
-
     }
 
-    free(lattice);
-
   }
+  free(lattice);
+  free(expo);
   return 0;
 
 }
