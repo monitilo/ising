@@ -9,4 +9,4 @@ end=$(date +%s)
 
 echo $(($end-$start))
 
-python graficos.py MvsT.txt
+#python graficos.py MvsT.txt
