@@ -59,8 +59,8 @@ int main(int argc, char **argv) {
         float sigmaE = 0;
         float sigmaM = 0;
 
-        for (int i=-2; i<3; i++) expo[i+2]  = exp(-(J*4*i+*B)/T) ;
-        for (int i=-2; i<3; i++) expo[i+2+5]= exp(-(J*4*i-*B)/T) ;
+        for (int i=-2; i<3; i++) expo[i+2]  = exp(-(J*4*i+B)/T) ;
+        for (int i=-2; i<3; i++) expo[i+2+5]= exp(-(J*4*i-B)/T) ;
 
         e = energia(lattice,n,J,B);
         m = magnetizacion(lattice,n);
