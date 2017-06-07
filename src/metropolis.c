@@ -183,34 +183,41 @@ int magnetizacion2(int*lattice, int n){
 
 int vecinos2(int *lattice, int n, int idx){
 
-  int i=0, j=idx;
+  int i, j;
 
-  while(j>=n){
-      j = j-n;
-      i = i+1;
-  }
+  i = idx/n;
+  j = idx%n;
 
   int e;
 
   if(i==0){
 
-    if(j==0) e = 0;
-    else if(j==(n-1)) e = 0;
-    else e = 0;
+    if(j==0) e = lattice[0]*(lattice[n*(n-1)+n-1]+lattice[n*(n-1)+1]
+                              +lattice[n+1]+lattice[n+n-1]);
+    else if(j==(n-1)) e = lattice[n-1]*(lattice[n*(n-1)+n-2]+lattice[n*(n-1)]
+                                        +lattice[n]+lattice[n+n-2]);
+    else e = lattice[j]*(lattice[n*(n-1)+j-1]+lattice[n*(n-1)+j+1]
+                          +lattice[n+j+1]+lattice[n+j-1]);
 
   }
   else if(i==(n-1)){
 
-    if(j==0) e = 0;
-    else if(j==(n-1)) e = 0;
-    else e = 0;
+    if(j==0) e = lattice[n*(n-1)]*(lattice[n*(n-2)+n-1]+lattice[n*(n-2)+1]
+                                  +lattice[1]+lattice[n-1]);
+    else if(j==(n-1)) e = lattice[n*(n-1)+n-1]*(lattice[n*(n-2)+n-2]
+                                  +lattice[n*(n-2)]+lattice[0]+lattice[n-2]);
+    else e = lattice[n*(n-1)+j]*(lattice[n*(n-2)+j-1]+lattice[n*(n-2)+j+1]
+                                +lattice[j+1]+lattice[j-1]);
 
   }
   else{
 
-    if(j==0) e = 0;
-    else if(j==(n-1)) e = 0;
-    else e = 0;
+    if(j==0) e = lattice[i*n]*(lattice[n*(i-1)+n-1]+lattice[n*(i-1)+1]
+                              +lattice[n*(i+1)+1]+lattice[n*(i+1)+n-1]);
+    else if(j==(n-1)) e = lattice[i*n+n-1]*(lattice[n*(i-1)+n-2]+lattice[n*(i-1)]
+                                          +lattice[n*(i+1)]+lattice[n*(i+1)+n-2]);
+    else e = lattice[i*n+j]*(lattice[n*(i-1)+j-1]+lattice[n*(i-1)+j+1]
+                            +lattice[n*(i+1)+j+1]+lattice[n*(i+1)+j-1]);
 
   }
 
