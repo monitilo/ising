@@ -12,11 +12,24 @@ aux=aux[1]
 aux=aux.split("=")
 B=float(aux[1])
 
+xl=50
+
 plt.figure(1)
 
 plt.subplot(211)
-plt.plot(T,M,'.-b')
-plt.plot(np.trim_zeros(T),32**2*np.tanh(B/np.trim_zeros(T)),'.-r')
+plt.plot(T,M,'ob',label="Experimento")
+plt.plot(np.trim_zeros(T),32**2*np.tanh(B/np.trim_zeros(T)),'-r',linewidth=2.0,label='Teoria')
+plt.xlim(0,xl)
+plt.xlabel("T")
+plt.ylabel("M")
+plt.legend(loc='best')
+
 plt.subplot(212)
-plt.plot(T,sM,'.-b')
+plt.plot(T,E,'ob',label="Experimento")
+plt.plot(np.trim_zeros(T) ,-32**2*B*np.tanh(B/np.trim_zeros(T)),'-r',linewidth=2.0,label='Teoria')
+plt.xlim(0,xl)
+plt.xlabel("T")
+plt.ylabel("E")
+plt.legend(loc='best')
+plt.savefig("2a_B="+str(B)+".png")
 plt.show()
