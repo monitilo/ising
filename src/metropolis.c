@@ -140,15 +140,15 @@ int flip2(int *lattice, int n, int idx, float J, float B, float *expo, float *e,
 
   if(deltae<0) lattice[idx]=lattice[idx]*(-1);
   else{
-    indice = 2*vecinos(lattice,n,idx)/4 ;
-    indice2 = 2*vecinos2(lattice,n,idx)/4;
+    indice = 2*vecinos(lattice,n,idx) / 4 ;
+    indice2 = 2*vecinos2(lattice,n,idx) / 4 ;
 
     if (lattice[idx]==1){
-      pi=expo[indice+2]*expo[indice2+2];
+      pi=expo[indice+2]/expo[indice2+2];
     }
 
     else{
-      pi=expo[indice+2+5]*expo[indice2+2+5];
+      pi=expo[indice+2+5]/expo[indice2+2+5];
     }
     if( ((float)rand() / (float)RAND_MAX) < pi ) lattice[idx]=lattice[idx]*(-1);
     else deltae = 0;
