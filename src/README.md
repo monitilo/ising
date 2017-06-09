@@ -1,7 +1,7 @@
 # Source Files
 Aclaracion: las extensiones .casa existen porque no sabiamos como compilar con varios mains.
-*2a.c, 2b.c, 2c.c, 2d.c y 2e.c son los mains que se utilizaron para correr cada punto de la guía
-*ising.c y MvsT.c son unos tests preeliminares que se realizaron antes de correr los mains.
+*.2a.c, 2b.c, 2c.c, 2d.c y 2e.c son los mains que se utilizaron para correr cada punto de la guía
+*.ising.c y MvsT.c son unos tests preeliminares que se realizaron antes de correr los mains.
 *bimodal.c se encarga de acumular muchas repeticiones de E y M a una temperatura fija, para poder ver la distribucion de probabilidad
 
 *metropolis.c y metropolis.h contienen las funciones necesarias para correr el algoritmo de metropolis:
