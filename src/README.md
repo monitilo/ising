@@ -5,8 +5,8 @@ Aclaracion: las extensiones .casa existen porque no sabiamos como compilar con v
 * bimodal.c se encarga de acumular muchas repeticiones de E y M a una temperatura fija, para poder ver la distribucion de probabilidad
 
 * metropolis.c y metropolis.h contienen las funciones necesarias para correr el algoritmo de metropolis:
-  ⋅⋅⋅ metropolis() avanza un paso en la cadena de metropolis, actualizando los valores de energia y magnetizacion, ademas de cambiar la configuración del sistema si corresponde
-⋅⋅⋅ pick_site() se encarga de elegir un elemento de la red al azar
+  * metropolis() avanza un paso en la cadena de metropolis, actualizando los valores de energia y magnetizacion, ademas de cambiar la configuración del sistema si corresponde
+  ⋅⋅* pick_site() se encarga de elegir un elemento de la red al azar
 ⋅⋅⋅flip() se encarga de cambiar la configuración del sistema
 ⋅⋅⋅energia() calcula la energia de la red
 ⋅⋅⋅vecinos() calcula el producto del spin iesimo con sus 4 vecinos, aplicando condiciones de contorno periodicas
