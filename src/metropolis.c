@@ -15,8 +15,8 @@ int metropolis(int *lattice, int n, float J, float B,float *expo, float *e, int 
 
 int pick_site(int *lattice, int n) {
 
-  int i = 1024;
-  while(i==1024) i = (int)(((float)rand() / (float)RAND_MAX)*n*n);
+  int i = n*n;
+  while(i==n*n) i = (int)(((float)rand() / (float)RAND_MAX)*n*n);
   return i;
 
 }
