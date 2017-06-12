@@ -21,16 +21,16 @@ int main(int argc, char **argv) {
 
   srand(time(NULL));
 
-  float B_vector[5]={0,0.001,0.01,0.1,1};
-  float J_vector[6]={-1,-0.5,-0.1,0.1,0.5,1};
-  float Tmax_vector[5]={5,5,5,20,200};
+  float B_vector[]={0.01,0.1};
+  float J_vector[]={0.5,1};
+  float Tmax_vector[]={5,20};
   float Tmax, pendiente;
   int wmax = 5000;
   float *expo = malloc(10*sizeof(float));
   int *lattice = malloc(n * n * sizeof(int));
 
 
-  for(int b=0;b<5;b++){
+  for(int b=0;b<2;b++){
 
     fill_lattice(lattice, n, prob);
 
@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
     Tmax = Tmax_vector[b];
     pendiente = Tmax/wmax;
 
-    for(int j=0;j<6;j++){
+    for(int j=0;j<2;j++){
 
       J = J_vector[j];
 
